@@ -23,10 +23,32 @@ def modify(path):
             break
     f.close()
 
+
+def search(path):
+    found = 0
+    name = input("Enter name of student: ")
+    try:
+        f = open(path, "r")
+        csv_r = csv.reader(f)
+        for rec in csv_r:
+            if rec[1] == name:
+                print(f"Marks of {name} is {rec[2]}.")
+                found = 1
+                break
+        f.close()
+    except FileNotFoundError:
+        print("File not found!")
+    if found == 0:
+        print("Sorry! No record found.")
+
 # __main__
-choice = int(input("What do you want to do?\n1. Create\n2. Modify\nEnter your choice: "))
+choice = int(input("What do you want to do?\n1. Create\n2. Modify\n3. Search\nEnter your choice: "))
 path = input("Enter the path of csv file: ")
 if choice == 1:
     create(path)
 elif choice == 2:
     modify(path)
+elif choice == 3:
+    search(path)
+else:
+    print("Invalid choice!")
